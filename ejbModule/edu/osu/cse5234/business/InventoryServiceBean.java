@@ -50,7 +50,7 @@ public class InventoryServiceBean implements InventoryService {
 		// TODO Auto-generated method stub
 		List<Item> orderItems = (List<Item>) items;
 		Inventory inventory_origin = getAvailableInventory();
-		for(int i=0; i<items.size(); i++){
+		for(int i=0; i<orderItems.size(); i++){
 			Item orderOne = orderItems.get(i);
 			for(int j=0; j<inventory_origin.size(); j++){
 				Item inventoryOne = inventory_origin.getInventory().get(j);
