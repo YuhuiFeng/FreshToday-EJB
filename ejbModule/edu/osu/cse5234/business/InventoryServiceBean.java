@@ -4,9 +4,6 @@ import edu.osu.cse5234.business.view.Inventory;
 import edu.osu.cse5234.business.view.InventoryService;
 import edu.osu.cse5234.business.view.Item;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -46,32 +43,26 @@ public class InventoryServiceBean implements InventoryService {
 	}
 
 	@Override
-	public boolean validateQuantity(Collection<Item> items) {
+	public boolean validateQuantity(int id, int quantity) {
 		// TODO Auto-generated method stub
-		List<Item> orderItems = (List<Item>) items;
 		Inventory inventory_origin = getAvailableInventory();
-		for(int i=0; i<orderItems.size(); i++){
-			Item orderOne = orderItems.get(i);
-			for(int j=0; j<inventory_origin.size(); j++){
-				Item inventoryOne = inventory_origin.getInventory().get(j);
-				if(orderOne.getId()==inventoryOne.getId()){
-					if(Integer.parseInt(orderOne.getQuantity())>Integer.parseInt(inventoryOne.getQuantity())){
-						return false;
-					}
-					break;
+		for(int j=0; j<inventory_origin.size(); j++){
+			Item inventoryOne = inventory_origin.getInventory().get(j);
+			if(id==inventoryOne.getId()){
+				if(quantity>Integer.parseInt(inventoryOne.getQuantity())){
+					return false;
 				}
+				break;
 			}
 		}
 		return true;
 	}
 
 	@Override
-	public boolean updateInventory(Collection<Item> items) {
+	public boolean updateInventory() {
 		// TODO Auto-generated method stub
 		// now it is in purchase controller
 		return true;
 	}
-    
-    
 
 }
